@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <Header />
+  <Header v-if="$route.path !== '/login' && $route.path !== '/register'" />
   <Content />
 </template>
 

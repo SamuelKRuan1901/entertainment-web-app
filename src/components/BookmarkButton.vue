@@ -41,7 +41,7 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: hsla(0, 3%, 26%, 0.374);
-
+  z-index: 5;
   transition: all 0.3s ease-in-out;
   &:hover {
     scale: 1.2;

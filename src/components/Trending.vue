@@ -7,6 +7,7 @@
           :src="item.thumbnail.trending"
           :alt="item.title"
           class="trendingImg"
+          loading="lazy"
         />
         <BookmarkButton
           :isBookmarked="item.isBookmarked"
@@ -20,6 +21,7 @@
                 :src="item.category === 'Movie' ? movie : series"
                 alt="category"
                 class="categoryIcon"
+                loading="lazy"
             /></span>
             {{ item.category }} - {{ item.rating }}
           </p>
@@ -76,9 +78,9 @@ h1 {
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   overflow-x: auto;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .trendingImg {
@@ -88,7 +90,7 @@ h1 {
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
   &:hover {
-    scale: 1.1;
+    scale: 1.2;
   }
 }
 
@@ -108,6 +110,13 @@ h1 {
   align-items: start;
   gap: 0.5rem;
   transition: all 0.3s ease-in-out;
+  z-index: 5;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .categoryIcon {

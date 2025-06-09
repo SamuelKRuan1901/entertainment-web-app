@@ -9,29 +9,49 @@
     <input
       type="search"
       placeholder="Search for movies or TV series"
-      ref="searchInput"
       class="searchInput"
       :class="{ active: active }"
+      v-model="searchText"
     />
   </div>
 </template>
 <script>
 import searchIcon from '@/assets/icon-search.svg';
+import { debounce } from '@/utils/debounce';
+
 export default {
   name: 'SearchBar',
+
   data() {
     return {
       img: searchIcon,
-      active: false
+      active: false,
+      searchText: ''
     };
+  },
+  watch: {
+    searchText(newVal) {
+      // Debounce the route update to reduce the number of router calls,
+      // especially if filtering data is expensive.
+      this.debouncedUpdateSearch();
+    }
   },
   methods: {
     handleClickSearchIcon() {
-      console.log('click');
       this.active = !this.active;
-      //   if (this.refs.searchInput === null) this.$refs.searchInput.focus();
-      // }
-    }
+    },
+    updateSearch() {
+      // Use replace instead of push to avoid piling up browser history.
+      this.$router.replace({
+        path: '/search',
+        query: { query: this.searchText }
+      });
+    },
+    // Wrap updateSearch with a debounce so the route is only updated after the user
+    // pauses typing for 300ms. You can adjust the delay as needed.
+    debouncedUpdateSearch: debounce(function () {
+      this.updateSearch();
+    }, 300)
   }
 };
 </script>

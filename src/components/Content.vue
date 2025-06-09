@@ -1,22 +1,19 @@
 <template>
   <main>
-    <SearchBar />
-    <Trending />
-    <Recommended />
+    <SearchBar v-if="$route.path !== '/login' && $route.path !== '/register'" />
+    <RouterView />
   </main>
 </template>
 
 <script>
-import Trending from '@/components/Trending.vue';
 import SearchBar from '@/components/SearchBar.vue';
-import Recommended from '@/components/Recommended.vue';
+import { RouterView } from 'vue-router';
 
 export default {
   name: 'Content',
   components: {
     SearchBar,
-    Trending,
-    Recommended
+    RouterView
   }
 };
 </script>

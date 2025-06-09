@@ -1,10 +1,16 @@
 <template>
   <header>
-    <div class="elementContainer">
-      <img :src="nav[0].img" :alt="nav[0].name" class="logo" />
-    </div>
+    <RouterLink to="/" class="elementContainer">
+      <img
+        :src="nav[0].img"
+        :alt="nav[0].name"
+        class="logo"
+        @click="handleChoseElement(item)"
+      />
+    </RouterLink>
     <div id="nav">
-      <div
+      <RouterLink
+        :to="item.url"
         class="elementContainer"
         v-for="item in nav"
         :key="item.id"
@@ -17,24 +23,34 @@
           :alt="item.name"
           class="navElement"
         />
-      </div>
+      </RouterLink>
     </div>
 
-    <div class="elementContainer">
+    <div class="elementContainer" @click="handleOpenModal(nav[nav.length - 1])">
       <img
         :src="nav[nav.length - 1].img"
         :alt="nav[nav.length - 1].name"
         class="logo"
       />
     </div>
+
+    <router-link
+      v-if="nav[nav.length - 1].active === true"
+      class="avatarBox"
+      to="/login"
+      @click="handleOpenModal(nav[nav.length - 1])"
+      >Login</router-link
+    >
   </header>
 </template>
 
 <script>
 import { navItems } from '@/lib/nav';
+import { RouterLink } from 'vue-router';
 
 export default {
   name: 'Header',
+  components: { RouterLink },
   data() {
     return {
       nav: navItems
@@ -46,9 +62,13 @@ export default {
         element.active = false;
       });
       if (item.id === 1) {
+        item[2].active = true;
         item[1].active = true;
       }
       item.active = true;
+    },
+    handleOpenModal(item) {
+      item.active = !item.active;
     }
   }
 };
@@ -111,6 +131,28 @@ header {
   }
 }
 
+.avatarBox {
+  width: 10rem;
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 10px;
+  background-color: #161d2f;
+  position: absolute;
+  bottom: 0;
+  right: -12rem;
+  font-size: 1.5rem;
+  font-weight: semibold;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    scale: 1.1;
+  }
+}
+
 .active {
   transition: all 0.3s ease-in-out;
   filter: invert(1);
@@ -123,6 +165,11 @@ header {
     left: 17px;
     flex-direction: row;
     gap: 2rem;
+  }
+
+  .avatarBox {
+    bottom: -6rem;
+    right: 0;
   }
 
   .navElement {

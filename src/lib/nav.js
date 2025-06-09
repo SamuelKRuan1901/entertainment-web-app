@@ -8,42 +8,42 @@ import avatarIcon from '../assets/image-avatar.png';
 export const navItems = [
   {
     name: 'logo',
-    url: '#',
+    url: '/',
     active: true,
     id: 1,
     img: logoIcon
   },
   {
     name: 'home',
-    url: '#',
-    active: false,
+    url: '/',
+    active: true,
     id: 2,
     img: homeIcon
   },
   {
     name: 'movies',
-    url: '#',
+    url: '/movies',
     active: false,
     id: 3,
     img: moviesIcon
   },
   {
     name: 'series',
-    url: '#',
+    url: '/series',
     active: false,
     id: 4,
     img: seriesIcon
   },
   {
     name: 'bookmarks',
-    url: '#',
+    url: '/bookmarks',
     active: false,
     id: 5,
     img: bookmarksIcon
   },
   {
     name: 'profile',
-    url: '#',
+    url: '/:id',
     active: false,
     id: 6,
     img: avatarIcon
